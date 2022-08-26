@@ -37,9 +37,9 @@ class BoardNode():
         self.x = window_position.get('x')
         self.y = window_position.get('y')
 
-    # a utiltiy method to ensure hounds cannot move backwards.
+    # a utility method to ensure hounds cannot move backwards.
     # this is illegal
-    # no hound crimes
+    # no hound crimes here
     def validate_hound_move(self,Space):
         return (self.x <= Space.x)
 
@@ -63,12 +63,11 @@ class BoardNode():
             return self.validDict
 
 class BoardNodeButton():
-    """A class representing a button which has a board node, which handles all graphical functions"""
+    """A class representing a button which has a board node, which handles all of its  graphical functions"""
     
-    def __init__(self,board_window,board_node,master=None):
+    def __init__(self,board_window,board_node):
         self.board_window = board_window
         self.board_node = board_node
-        self.master = master
         self.button_image_list = [tk.PhotoImage(file=StateImageMap.theMap[State.Empty], width=55, height=55),tk.PhotoImage(file=StateImageMap.theMap[State.Hare], width=55, height=55),tk.PhotoImage(file=StateImageMap.theMap[State.Hound], width=55, height=55)]
         self.button_image = self.button_image_list[self.board_node.state]
         self.button = tk.Button(width=65, height=65,image=self.button_image, bg='#855907',activebackground='#d99009')

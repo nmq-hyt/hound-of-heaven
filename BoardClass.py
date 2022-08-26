@@ -6,7 +6,8 @@ class Board():
     """A undirected graph class to represent a board state"""
 
     def __init__(self):
-        """Initiliaze a default board, using adjacency lists for our representation of the board structure"""
+        """Initiliaze a default board, using adjacency lists for our 
+        representation of the board structure"""
         self.zeroth = BoardNode(State.Hound,0,{'x':80, 'y':175})
         self.first = BoardNode(State.Hound,1,{'x':180, 'y':30})
         self.second = BoardNode(State.Empty,2,{'x':180, 'y':175})
@@ -75,7 +76,7 @@ class BoardWindow():
         self.resetButton = tk.Button(text="Reset", width=5, height=1)
         self.resetButton.place(x=650, y=0)
         self.resetButton.configure(command=self.reset_board)
-        self.zerothButton = BoardNodeButton(self, self.board.zeroth, self.main_window)
+        self.zerothButton = BoardNodeButton(self, self.board.zeroth)
         self.firstButton = BoardNodeButton(self, self.board.first)
         self.secondButton = BoardNodeButton(self, self.board.second)
         self.thirdButton = BoardNodeButton(self, self.board.third)
@@ -161,7 +162,6 @@ class BoardWindow():
             if (node.board_node.state == State.Hound):
                 currentHounds.append(node)
         print(self.is_game_over(currentHounds,currentHare))          
-
         self.hare_or_hound(self.board.turnCounter.whoseTurn())
    
     def reset_colors(self):
