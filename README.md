@@ -3,17 +3,26 @@ You can run the game by downloading the zip file, extracting it wherever suits, 
 
 python3 main.py
 
-Works on Linux-like systems only, for the moments.
+Works on Linux-like systems only, for the moment.
 
 Or, if you don't want to click the link:
     One player represents the three Hounds, which try to corner the other player's Hare as it seeks to win by escaping them.
-    The Hounds move first. Each player can move one piece one step in each turn. The Hounds can only move forward or diagonally (left to right) or vertically (up and down). The Hare can move in any direction.
+    The Hounds move first. Each player can move one piece one step in each turn. The Hounds can only move forward or diagonally (left to right) or    vertically (up and down). The Hare can move in any direction.
     The Hounds win if they "trap" the Hare so that it can no longer move.
     The Hare wins if it "escapes" (gets past all the Hounds).
     
-I've yet to implement the anti-stalling rule. I'll do that at some point.
+I've yet to implement the anti-stalling rule described in the article. I'll do that at some point.
 
-You interact with any hound or hare by clicking on it. Any legal moves will be shown in green, any illegal moves in red.
+You interact with any hound or hare node (represented by the little graphic icons) by clicking on it. Any legal moves will be shown in green, any illegal moves in red.
 You can reset the board to the default setting by clicking reset.
 
 More development to come.
+
+
+Why Did I Make This?
+
+For a number of reasons:
+
+I enjoy making games.
+I wanted to get more experience in learning OOP, in particular with designing classes outside of college work.
+I also wanted to try python from a general programming perspective.
