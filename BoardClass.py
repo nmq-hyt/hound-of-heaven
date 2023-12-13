@@ -123,7 +123,6 @@ class BoardWindow():
     def breadth_first_func(self,graph,node,func):
         for button in self.buttonList:
             button.board_node.color = "white"
-
         queue = deque([])
         node.color = "grey";
         queue.appendleft(node)
@@ -147,7 +146,6 @@ class BoardWindow():
                 currentHare = node
             if (node.board_node.state == State.Hound):
                 currentHounds.append(node)
-   
         button_1 = self.buttonList[position_1.board_node.board_pos]
         button_2 = self.buttonList[position_2.board_node.board_pos]
         temp1 = button_1.board_node.state
@@ -164,11 +162,7 @@ class BoardWindow():
             if (node.board_node.state == State.Hound):
                 currentHounds.append(node)
         self.hare_or_hound(self.board.turnCounter.whoseTurn())
-        self.is_game_over(currentHounds,currentHare)
-   
-    def debug_enabled_state(self,node,node1):
-       print(node.enabledTruth)
-       print(node.state)
+        print(self.is_game_over(currentHounds,currentHare))
        
     def reset_colors(self):
         for node in self.buttonList:
@@ -211,14 +205,13 @@ class BoardWindow():
                 elif node.board_node.state == State.Hare:
                     node.board_node.enabledTruth = True
         self.breadth_first_func(self,self.board.zeroth,self.debug_enabled_state)
-        print("=================")
         
     def is_game_over(self,hounds, hare):
         result = hare.board_node.check_moves_hare()
         # if the hare can't make any moves, it is trapped, and loses
         if (True not in result.values()):
-            print("Hounds")
             self.reset_board()
+            return "Hounds"
         hounds_passed = []
         for hound in hounds:
             hound.enabledTruth = True;
@@ -226,7 +219,7 @@ class BoardWindow():
                 hounds_passed.append(hound);
             hound.enabledTruth = False;
         if (len(hounds_passed) == 3):
-            print("Hares")
             self.reset_board()
+            return "Hares"
         else:
-            return "continue"
+            return "Continue"
