@@ -2,6 +2,7 @@ from BoardNodeClass import *
 from collections import deque
 import tkinter as tk
 from TurnCounter import TurnCounter
+from time import sleep
 class Board():
     """A undirected graph class to represent a board state"""
 
@@ -54,6 +55,7 @@ class Board():
         self.eight.neighbours = self.adjacenyList[8]   
         self.nine.neighbours = self.adjacenyList[9]
         self.ten.neighbours = self.adjacenyList[10]
+        self.winSleepTime = float(5)
         self.turnCounter = TurnCounter()
 
 class BoardWindow():
@@ -145,7 +147,7 @@ class BoardWindow():
                 currentHare = node
             if (node.board_node.state == State.Hound):
                 currentHounds.append(node)
-        print(self.is_game_over(currentHounds,currentHare))        
+   
         button_1 = self.buttonList[position_1.board_node.board_pos]
         button_2 = self.buttonList[position_2.board_node.board_pos]
         temp1 = button_1.board_node.state
@@ -161,9 +163,13 @@ class BoardWindow():
                 currentHare = node
             if (node.board_node.state == State.Hound):
                 currentHounds.append(node)
-        print(self.is_game_over(currentHounds,currentHare))          
         self.hare_or_hound(self.board.turnCounter.whoseTurn())
+        self.is_game_over(currentHounds,currentHare)
    
+    def debug_enabled_state(self,node,node1):
+       print(node.enabledTruth)
+       print(node.state)
+       
     def reset_colors(self):
         for node in self.buttonList:
             node.button.configure(bg='red')
@@ -171,7 +177,7 @@ class BoardWindow():
     def show_moves(self, moves):
         self.reset_colors()
         if moves == []:
-            pass
+            return None
         for key, value in moves.items():
             if value == True:
                 self.buttonList[key].button.configure(bg='green')
@@ -187,7 +193,6 @@ class BoardWindow():
         for node in self.buttonList:
             node.redraw_button()
         self.board.turnCounter.count = 0
-        self.status_label.configure(text="Hounds' Turn")
         self.hare_or_hound(0)
         
     def hare_or_hound(self,turnNumber):
@@ -205,14 +210,15 @@ class BoardWindow():
                     node.board_node.enabledTruth = False
                 elif node.board_node.state == State.Hare:
                     node.board_node.enabledTruth = True
-    #TODO: Make this more isolated and have it just be one function you can call by itself
+        self.breadth_first_func(self,self.board.zeroth,self.debug_enabled_state)
+        print("=================")
+        
     def is_game_over(self,hounds, hare):
-        hare.board_node.enabledTruth = True;      
-        result = hare.board_node.get_moves()
-        if ( True not in result.values()):
-            self.status_label.configure(text="Hounds win!")
+        result = hare.board_node.check_moves_hare()
+        # if the hare can't make any moves, it is trapped, and loses
+        if (True not in result.values()):
+            print("Hounds")
             self.reset_board()
-        hare.enabledTruth = False;
         hounds_passed = []
         for hound in hounds:
             hound.enabledTruth = True;
@@ -220,7 +226,7 @@ class BoardWindow():
                 hounds_passed.append(hound);
             hound.enabledTruth = False;
         if (len(hounds_passed) == 3):
-            self.status_label.configure(text="Hare wins!")
+            print("Hares")
             self.reset_board()
         else:
             return "continue"

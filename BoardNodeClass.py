@@ -38,7 +38,7 @@ class BoardNode():
         self.y = window_position.get('y')
 
     # a utility method to ensure hounds cannot move backwards.
-    # this is illegal
+    # this is an illegal move
     # no hound crimes here
     def validate_hound_move(self,Space):
         return (self.x <= Space.x)
@@ -61,6 +61,17 @@ class BoardNode():
                 if node.state == State.Hound or node.state == State.Hare:
                     self.validDict[node.board_pos] = False
             return self.validDict
+        
+    def check_moves_hare(self):
+        self.validDict.clear()
+        for node in self.neighbours:
+                if node.state == State.Empty:
+                    self.validDict[node.board_pos] = True
+                elif node.state == State.Hound:
+                    self.validDict[node.board_pos] = False      
+                return self.validDict
+
+        
 
 class BoardNodeButton():
     """A class representing a button which has a board node, which handles all of its  graphical functions"""
