@@ -216,11 +216,11 @@ class BoardWindow():
             self.reset_board()
             return "Hares"
         hounds_passed = []
+        #TODO: replace this check with all() call 
+        # that ensures each hound is ahead of hare
         for hound in hounds:
-            hound.enabledTruth = True;
             if (hound.board_node.x > hare.board_node.x):
                 hounds_passed.append(hound);
-            hound.enabledTruth = False;
         if (len(hounds_passed) == 3):
             self.reset_board()
             return "Hares"
