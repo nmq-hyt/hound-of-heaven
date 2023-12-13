@@ -8,7 +8,7 @@ class State:
     
 
 class StateImageMap:
-    theMap= {State.Empty: './assets/blank.png', State.Hare: './assets/hare.png', State.Hound: './assets/hound.png'}
+    theMap= {State.Empty: './assets/images/blank.png', State.Hare: './assets/images/hare.png', State.Hound: './assets/images/hound.png'}
     stringMap = {State.Empty: 'Empty', State.Hare: 'Hare', State.Hound: 'Hound'}
 
 class BoardNode():

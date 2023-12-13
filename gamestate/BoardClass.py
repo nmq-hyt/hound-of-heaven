@@ -1,7 +1,7 @@
-from BoardNodeClass import *
+from gamestate.BoardNodeClass import *
 from collections import deque
 import tkinter as tk
-from TurnCounter import TurnCounter
+from gamestate.TurnCounter import TurnCounter
 from time import sleep
 class Board():
     """A undirected graph class to represent a board state"""
