@@ -1,7 +1,7 @@
-from gamestate.BoardNodeClass import *
+from BoardNodeClass import *
 from collections import deque
 import tkinter as tk
-from gamestate.TurnCounter import TurnCounter
+from TurnCounter import TurnCounter
 from time import sleep
 class Board():
     """A undirected graph class to represent a board state"""
@@ -109,7 +109,7 @@ class BoardWindow():
         self.breadth_first_func(self,self.board.ten,self.draw_line_between_nodes)
         self.breadth_first_func(self,self.board.fifth,self.draw_line_between_nodes)
         self.breadth_first_func(self,self.board.eight,self.draw_line_between_nodes)
-        self.status_label = tk.Label(self.main_window,text="Hounds Of Heaven", width =15)
+        self.status_label = tk.Label(self.main_window, width =15)
         self.status_label.place(x=300, y = 0)
         self.main_window.geometry('720x480+50+50')
         self.canvas.pack()
@@ -162,6 +162,7 @@ class BoardWindow():
             if (node.board_node.state == State.Hound):
                 currentHounds.append(node)
         self.hare_or_hound(self.board.turnCounter.whoseTurn())
+        sleep(float(0.5))
         print(self.is_game_over(currentHounds,currentHare))
        
     def reset_colors(self):
@@ -204,7 +205,6 @@ class BoardWindow():
                     node.board_node.enabledTruth = False
                 elif node.board_node.state == State.Hare:
                     node.board_node.enabledTruth = True
-        self.breadth_first_func(self,self.board.zeroth,self.debug_enabled_state)
         
     def is_game_over(self,hounds, hare):
         result = hare.board_node.check_moves_hare()
@@ -212,6 +212,9 @@ class BoardWindow():
         if (True not in result.values()):
             self.reset_board()
             return "Hounds"
+        if (hare.board_node.board_pos == 0):
+            self.reset_board()
+            return "Hares"
         hounds_passed = []
         for hound in hounds:
             hound.enabledTruth = True;
